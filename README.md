@@ -31,10 +31,12 @@ Once the calculator has populated the table, the final SDT total is added to the
 
 Pound sterling values are processed through a function called 'formatMoney', adding the '£', commas to split up values over a thousand, and two decimal places if the number isn't round.
 
+Functions 'firstTime' and 'secondProp' make sure that only one of 'Are you a first time buyer?' or 'Is this a second property?' is active at any one time, as you can't be a first time buyer and buying a second property. However, I used HTML inputs rather than a radio as it's important neither of these options have to be selected.
+
 ## To do list
 1) Add shared ownership as third buyer option;
 2) Add additional JavaScript comments, better explaining the code;
-3) Tidy JavaScript file
+3) Tidy JavaScript file;
 4) Improve appearance of the calculator (Animations for the table loading)
 
 ## Built With
