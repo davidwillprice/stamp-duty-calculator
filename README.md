@@ -2,7 +2,7 @@
 Calculator for Stamp Duty Tax when buying a property in the UK. Accurate as of November 2018.
 
 ## Intro
-While working for estate agents Love Your Postcode in 2016, I was asked to create a calcalator for the website that would allow users to input the cost of the property and return the amount of Stamp Duty Tax back, depending on if the user was a first-time buyer, buying a second property or neither. As I didn't know JavaScript at the time, I worked out the values for each cell in the calculator table using algebra and then my JavaScript/PHP developer colleague translated those workings into a finished calculator.
+While working for estate agents Love Your Postcode in 2016, I was asked to create a calculator for the website that would allow users to input the cost of the property and return the amount of Stamp Duty Tax back, depending on if the user was a first-time buyer, buying a second property or neither. As I didn't know JavaScript at the time, I worked out the values for each cell in the calculator table using algebra and then my JavaScript/PHP developer colleague translated those workings into a finished calculator.
 
 As I started to learn JavaScript in October 2018, I challenged myself to re-code the SDT calculator from scratch.
 
