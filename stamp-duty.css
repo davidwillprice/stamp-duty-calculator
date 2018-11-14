@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,700');
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,500,700');
+
+body {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+.hide{
+	display:none;
+}
+
+.border-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.stamp_container {
+    max-width: 1000px;
+    margin: 30px auto;
+}
+.stamp_background {
+    background: #eef0ee;
+    border-radius: 8px;
+    padding: 10px 10px 30px;
+    overflow: hidden;
+    margin:0 5px;
+    color: #505050;
+}
+.stamp_background h2 {
+	font-size: 24px; 
+	text-align: center; 
+	color: #1D859B !important;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.stamp_cost_table {
+    max-width: 650px;
+    margin: 10px auto 0;
+    width: 100%;
+    color: #505050!important;
+    overflow: auto;
+}
+
+.stamp_cost_table input{
+    width: 21px;
+    height: 21px;
+    margin: 8px 0 0;
+}
+
+.stamp_cost_table td, .stamp_cost_table th{
+    border: 0px solid #333;
+}
+
+.stamp-duty-table {
+    width:100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.stamp-duty-table td, .stamp-duty-table th {
+    padding: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align:center;
+}
+.pound_box {
+    float: left;
+    height: 48px;
+    width: 48px;
+    border-radius: 5px;
+    border: 1px solid #d5d5d5;
+    box-shadow: none;
+    color: #707070;
+    padding: 0px;
+    background-color: #fff;
+    font-size: 40px;
+    line-height: 43.5px;
+    text-align: center;
+    font-weight: 600;
+	margin-right:5px;
+}
+
+#costofhouse {
+    float: left;
+    font-size: 20px;
+    font-weight: 500;
+    height: 48px;
+    border-radius: 5px;
+    width: calc(100% - 200px);
+    padding: 6px;
+    margin: 0 7px 0 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+#calcstampduty {
+	font-size: 17px!important;
+    padding: 11px 20px!important;
+    float: left;
+    border: 1px solid #59585a!important;
+    background-color: #59585a;
+	font-family: open sans,Helvetica,arial!important;
+    width: 140px;
+    position: relative;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 24px;
+    font-weight: 700;
+    padding: 12px 34px;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+#calcstampduty:focus {
+    outline:0;
+}
+#calcstampduty:hover {
+    background: 0 0;
+    color: #59585a;
+    transition: color 0.3s, background-color 0.2s;
+}
+.stamp_result_title {
+    border-bottom: 2px solid;
+    color: #59585a;
+    font-weight: 600!important;
+	text-align:left;
+	font-size:24px;
+	margin-bottom:10px;
+}
+
+.stamp_result_titles {
+    font-size: 17px;
+    width: 50%;
+    float: left;
+    font-weight: 600!important;
+}
+.stamp_result_titles span {
+    margin-top: 10px;
+    color: #1d859b;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.stampDutyCalcuations {
+	width:100%;
+}
+
+.stamp-duty-table .col0 {
+    text-align: left;
+}
+
+.col1 {
+    background-color: #e6e6e6;
+}
+
+.col2 {
+    background-color: #ddd;
+}
+.col3 {
+    background-color: #cfcfcf;
+}
+
+.stampDutyCalcuations td, .stampDutyCalcuations th {
+	font-size: 17.5px;
+	border: 5px solid #fff;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.col1>span, .col2>span, .col3>span{
+    color: #1d859b;
+}
+/*End of Desktop CSS */
+
+@media only screen and (min-width: 1400px) {
+.polygon {
+    padding-top:50%;
+}
+.gradient_container svg {
+    width: 30%;
+    margin: 5% auto 0px;
+}
+.show_over_1400px {
+    display:block;
+}
+.hide_over_1400px {
+    display:none;
+}
+
+}
+
+@media only screen and (max-width: 1024px) {
+.page-wrap { margin-top:-4px; }
+.maintitle {
+    font-size:100px !important;
+}
+.page-id-156 .sydney-hero-area {
+    margin-top:60px;
+}
+.fl-photo-caption-hover {
+    opacity:1;
+}
+.pantone_large {
+    color:white !important;
+}
+	.lyp_screenshot_con {
+		padding-top:20px;
+	}
+}
+
+@media only screen and (min-width: 767px) {
+	.show_mobile {
+		display:none !important;
+	}	
+}
+
+@media only screen and (max-width: 767px) {
+	.hide_mobile {
+		display:none !important;
+	}
+    
+    .stampDutyCalcuations td, .stampDutyCalcuations th {
+        font-size: 14px;
+        padding:3px;
+        border: 3px solid #fff;
+}
+    .stamp_result_titles {
+        font-size:14px;
+    }
+    .stamp_result_titles span {
+        font-size:16px;
+    }
+	/*mobile css end */
+}
+
+@media (max-width: 350px) {
+	#calcstampduty {
+		width:100%;
+		margin-top:5px;
+	}	
+	#costofhouse {
+        width: calc(100% - 53px);
+		margin:0;
+	}
+	.stampDutyCalcuations td, .stampDutyCalcuations th {
+        font-size: 10.5px;
+        padding:2px;
+        border: 3px solid #fff;
+}
+}

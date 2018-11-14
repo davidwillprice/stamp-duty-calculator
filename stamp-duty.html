@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stamp Duty Calculator</title>
+        <link type="text/css" rel="stylesheet" href="stamp-duty.css">
+    </head>
+    <body>
+        
+<div class="stamp_container">
+<div class="stamp_background">
+<div style="max-width:650px; margin:0 auto;">
+<h2> What Stamp Duty Tax will I have to pay?</h2>
+
+<div class="stamp_cost_table">
+<div class="pound_box border-box">£</div><input type="number" value="" name="costofhouse" class="border-box" id="costofhouse" placeholder="Cost of house" step="250"><button id="calcstampduty" onclick="calcBut(this)">Calculate</button>
+</div>
+<table class="stamp_cost_table">
+<tbody>
+<tr><td style="width:5px"><input id="firstTime" type="checkbox" value="1" onclick="firstTime(this)"/></td>
+<td><div style="font-size: 17px; text-align:left;">Are you a first time buyer?</div></td></tr>
+<tr><td style="width:5px"><input id="secondProp" type="checkbox" value="2" onclick="secondProp(this)"/></td>
+<td><div style="font-size: 17px; text-align:left;">Is this a second property?</div></td></tr>
+</tbody>
+</table>
+
+<div style="display:none;" class="stampDutyCalcuations">
+<div class="stamp_cost_table">
+<h3 class="stamp_result_title">Results</h3></td>
+<div class="stamp_result_titles">Stamp duty to pay <br><span id="stDutyTax"></span></div>
+<div class="stamp_result_titles"> Effective rate<br><span id="effectRate"></span></div>
+</div>
+    <table style="margin-top: 24px;" class="stamp-duty-table">
+        <tbody>
+            <tr>
+                <th class="col0">Tax Band</th>
+                <th class="col1">%</th>
+                <th class="col2">Taxable Sum</th>
+                <th class="col3">Tax</th>
+            </tr>
+            <tr id="stamp-duty-row0">
+                <td class="col0"><span class="hide_mobile">£0 – £125,000</span><span class="show_mobile">£0 – £125k</span></td>
+                <td class="col1"><span id="stamp-b2"></span></td>
+                <td class="col2"><span id="stamp-c2"></span></td>
+                <td class="col3"><span id="stamp-d2"></span></td>
+            </tr>
+            <tr id="stamp-duty-row1">
+                <td class="col0"><span class="hide_mobile">£125,000 – £250,000</span><span class="show_mobile">£125k – £250k</span></td>
+                <td class="col1"><span id="stamp-b3"></span></td>
+                <td class="col2"><span id="stamp-c3"></span></td>
+                <td class="col3"><span id="stamp-d3"></span></td>
+            </tr>
+            <tr id="stamp-duty-row2">
+                <td class="col0"><span class="hide_mobile">£250,000 – £300,000</span><span class="show_mobile">£250k – £300k</span></td>
+                <td class="col1"><span id="stamp-b4"></span></td>
+                <td class="col2"><span id="stamp-c4"></span></td>
+                <td class="col3"><span id="stamp-d4"></span></td>
+            </tr>
+            <tr id="stamp-duty-row3">
+                <td class="col0"><span class="hide_mobile">£300,000 – £925,000</span><span class="show_mobile">£300k – £925k</span></td>
+                <td class="col1"><span id="stamp-b5"></span></td>
+                <td class="col2"><span id="stamp-c5"></span></td>
+                <td class="col3"><span id="stamp-d5"></span></td>
+            </tr>
+            <tr id="stamp-duty-row4">
+                <td class="col0"><span class="hide_mobile">£925,000 – £1,500,000</span><span class="show_mobile">£925k – £1.5m</span></td>
+                <td class="col1"><span id="stamp-b6"></span></td>
+                <td class="col2"><span id="stamp-c6"></span></td>
+                <td class="col3"><span id="stamp-d6"></span></td>
+            </tr>
+            <tr id="stamp-duty-row5">
+                <td class="col0"><span class="hide_mobile">£1,500,000+</span><span class="show_mobile">£1.5m+</span></td>
+                <td class="col1"><span id="stamp-b7"></span></td>
+                <td class="col2"><span id="stamp-c7"></span></td>
+                <td class="col3"><span id="stamp-d7"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="stamp-duty-script.js"></script>
+</body>
+</html>
