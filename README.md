@@ -27,9 +27,9 @@ The UI for the row is then populated with the percentage tax for that tax band, 
 
 The calculator then cycles to the next row/tax band using a for loop, adding the tax to the SDT total.
 
-Once the calculator has populated the table, the final SDT total is added to the UI, with the effect tax rate (The SDT total divided by the house price, and then multiplied by 100. 
+Once the calculator has populated the table, the final SDT total is added to the UI, with the effect tax rate (The SDT total divided by the house price, and then multiplied by 100). 
 
-Pound sterling values are processed through a function called 'formatMoney', where commas are added to split up values over a thousand, and two decimal places are added if the number isn't round.
+Pound sterling values are processed through a function called 'formatMoney', adding the '£', commas to split up values over a thousand, and two decimal places if the number isn't round.
 
 ## To do list
 1) Add shared ownership as third buyer option;
