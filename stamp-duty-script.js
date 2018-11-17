@@ -1,75 +1,274 @@
-var standBuyer = [0, 0.02, 0.05, 0.05, 0.10, 0.12];
-var firstBuyer = [0, 0, 0, 0.05, 0.10, 0.12];
-var secBuyer = [0.03, 0.05, 0.08, 0.08, 0.13, 0.15];
-var taxBand = [0, 125000, 250000, 300000, 925000, 1500000, Infinity];
-var taxSum;
-
-function stampCalc(buyerType) {
-    var housePrice = document.getElementById('costofhouse').value;
-    if (housePrice != "") {
-        var totalTax = 0;
-        document.querySelector('.stampDutyCalcuations').style.display = 'inline-block';
-        for (var i = 0; i < buyerType.length; i++) {
-            document.getElementById('stamp-duty-row' + i).classList.remove('hide');
-            var upBand = taxBand[i+1];
-            var loBand = taxBand[i];
-            //Calculating Taxable sum
-            if ((housePrice - loBand) <= 0) {
-                taxSum = 0;
-                document.getElementById('stamp-duty-row' + i).classList.add('hide');
-            } else if ((housePrice - loBand) > 0 && (housePrice - loBand) < (upBand - loBand)) {
-                taxSum = + (housePrice - loBand);
+//Data controller module
+var dataController = (function() {
+    
+    var data = {
+        totalTax: 0
+    };
+                  
+    return {
+        // Different tax percentages and taxBand data
+        standBuyer: [0, 0.02, 0.05, 0.05, 0.10, 0.12],
+        firstBuyer: [0, 0, 0, 0.05, 0.10, 0.12],
+        secBuyer: [0.03, 0.05, 0.08, 0.08, 0.13, 0.15],
+        taxBand: [0, 125000, 250000, 300000, 925000, 1500000, Infinity],
+        
+        wipe: function() {
+            data.totalTax = 0;
+        },
+        
+        calTaxSum : function (houseCost, i) {
+            var loBand = dataController.taxBand[i];
+            var upBand = dataController.taxBand[i+1];
+            if ((houseCost - loBand) <= 0) {
+                return 0;
+            } else if ((houseCost - loBand) > 0 && (houseCost - loBand) < (upBand - loBand)) {
+                return (houseCost - loBand);
             } else {
-            taxSum = (upBand - loBand);
+                return (upBand - loBand);
+            } 
+        },
+        
+        calTax : function (taxableSum, percentage) {
+            return taxableSum * percentage;
+        },
+        
+        storeTax: function(tax) {
+            data.totalTax += tax;
+        },
+        
+        getTotalTax: function() {
+            return data.totalTax;
+        },
+        
+        calEffRate: function(totalTax, houseCost) {
+            return (totalTax / houseCost) * 100;
+        }
+    };
+})();
+
+//UI controller module
+var UIController = (function() {
+    
+    //DOMStrings to streamline UI   
+    var DOMstrings = {
+        cost: 'costofhouse',
+        calBtn: 'calcstampduty',
+        firstTimeBtn: 'firstTime',
+        secondPropBtn: 'secondProp',
+        resultsTable: '.stampDutyCalcuations',
+        row: 'stamp-duty-row',
+        perColumn: 'stamp-b',
+        taxSumColumn: 'stamp-c',
+        taxColumn: 'stamp-d',
+        totalTax: 'stDutyTax',
+        effRate: 'effectRate',
+    };
+    
+    function formatMoney(n) {
+        //Add two decimal places if the number isn't round and add commas to split up money
+        if (n % 1 === 0) {
+            return '£' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
+        } else {
+            return '£' + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");  
+        }
+    }
+    
+    return {
+        //Obtain house price
+        getInput: function() {
+            return { 
+                housePrice: parseFloat(document.getElementById(DOMstrings.cost).value)
             }
-            //Add band's tax to total tax
-            totalTax += (buyerType[i] * taxSum);
-            //Populating row data
-            document.getElementById('stamp-b' + (i+2)).textContent = (buyerType[i] * 100) + '%';
-            document.getElementById('stamp-c' + (i+2)).textContent = formatMoney(taxSum);
-            document.getElementById('stamp-d' + (i+2)).textContent = formatMoney(buyerType[i] * taxSum);  
+        },
+        
+        //Return DOMstrings to global ctrl
+        getDOMstrings: function() {
+            return DOMstrings;
+        },
+    
+        showTable: function () {
+            document.querySelector(DOMstrings.resultsTable).style.display = 'inline-block';
+        },
+        
+        showRow: function(i) {
+            document.getElementById(DOMstrings.row + i).classList.remove('hide');
+        },
+        
+        hideRow: function(i) {
+            document.getElementById(DOMstrings.row + i).classList.add('hide');
+        },
+        
+        displayPercentages: function(percentage, i) {
+            document.getElementById(DOMstrings.perColumn + (i+2)).textContent = (percentage * 100) + '%';
+        },
+        
+        displayTaxableSum: function(taxableSum, i) {
+            document.getElementById(DOMstrings.taxSumColumn + (i+2)).textContent = formatMoney(taxableSum);
+        },
+        
+        displayTax: function(tax, i) {
+            document.getElementById(DOMstrings.taxColumn + (i+2)).textContent = formatMoney(tax);  
+        },
+        
+        displayTotalTax: function(totalTax) {
+            document.getElementById(DOMstrings.totalTax).textContent = formatMoney(totalTax);  
+        },
+        
+        displayEffRate: function(effRate) {
+            document.getElementById(DOMstrings.effRate).textContent = +parseFloat(effRate).toFixed(2) + '%';
+        },
+        
+        getBuyerType: function() {
+            if (document.getElementById(DOMstrings.firstTimeBtn).checked == true) {
+                return 'firstBuyer';
+            } else if (document.getElementById(DOMstrings.secondPropBtn).checked == true) {
+                return 'secBuyer';
+            } else {
+                return 'standBuyer';
+            }
+        },
+        
+        unselectFirstTime: function() {
+            document.getElementById(DOMstrings.firstTimeBtn).checked = false;
+        },
+        
+        unselectSecProp: function() {
+            document.getElementById(DOMstrings.secondPropBtn).checked = false;
+        }
     }
-    //Populate total tax and effective rate
-    document.getElementById('stDutyTax').textContent = formatMoney(totalTax);
-    document.getElementById('effectRate').textContent = +parseFloat((((totalTax / housePrice)*100 )).toFixed(2)) + '%';
-    }
-}
+    
+})();
 
-function formatMoney(n) {
-    //Add two decimal places if the number isn't round and add commas to split up money
-    if (n % 1 === 0) {
-       return '£' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
-    } else {
-       return '£' + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");  
+//Global controller module
+var controller = (function(dataCtrl, UICtrl) {
+    
+    var stampCalc = function(buyerType) {
+        var houseCost;
+        
+        // Wipe any previous calculations
+        dataCtrl.wipe();
+        
+        //1. Get the cost of the house
+        houseCost = UICtrl.getInput().housePrice;
+        //2. Only proceed if there is a house cost
+        if (houseCost >= 0) {
+            
+            //3. Show results table
+            UICtrl.showTable();
+            
+            //4. Loop through tax bands
+            for (var i = 0; i < buyerType.length; i++) {
+                
+                //5. Display percentages
+                UICtrl.displayPercentages(buyerType[i], i);
+                
+                //6. Calculate Taxable Sum
+                var taxableSum = dataCtrl.calTaxSum(houseCost, i);
+                
+                if (taxableSum === 0) {
+                    
+                    //If the taxable Sum for the row is 0, stop calculations & hide the row
+                    UICtrl.hideRow(i);
+                    
+                } else {
+                    
+                    UICtrl.showRow(i);
+        
+                    //7. Display Taxable Sum
+                    UICtrl.displayTaxableSum(taxableSum, i);
+                    
+                    //8.Calculate Tax
+                    var tax = dataCtrl.calTax(taxableSum, buyerType[i]);
+                    
+                    //9.Store Tax in data
+                    dataCtrl.storeTax(tax);
+                    
+                    //10. Display Tax
+                    UICtrl.displayTax(tax, i);
+                }
+            }
+            
+            //Total Tax
+            var totalTax = updateTotalTax();
+            
+            updateEffectiveRate(totalTax, houseCost);
+        }    
+    };
+    
+    var updateTotalTax = function() {
+        //11. Get total Tax 
+        var totalTax = dataCtrl.getTotalTax();
+            
+        //12. Display Total Tax
+        UICtrl.displayTotalTax(totalTax);
+        
+        return totalTax;
     }
-}
+    
+    var updateEffectiveRate = function(totalTax, houseCost) {
+        //12. Calcualate Effective Rate
+        var effRate = dataCtrl.calEffRate(totalTax, houseCost);
+            
+        //13. Display Effective Rate
+        UICtrl.displayEffRate(effRate); 
+    }
+    
+    var checkBuyerType = function() {
+        var buyerType = UICtrl.getBuyerType();
+        if (buyerType == 'firstBuyer') {
+            return dataCtrl.firstBuyer;
+        } else if (buyerType == 'secBuyer') {
+            return dataCtrl.secBuyer;
+        } else {
+            return dataCtrl.standBuyer;
+        }
+    }
 
-function calcBut() {
-    //Calculate button is clicked. Run calcutions depending on buyer type
-    if (document.getElementById("firstTime").checked == true) {
-        stampCalc(firstBuyer);
-    } else if (document.getElementById("secondProp").checked == true) {
-        stampCalc(secBuyer);
-    } else {
-        stampCalc(standBuyer);
+   var firstTime = function() {
+       var buyerType = UICtrl.getBuyerType();
+       UICtrl.unselectSecProp();
+       runCal();
     }
-}
+   
+    var secProp = function() {
+        var buyerType = UICtrl.getBuyerType();
+        UICtrl.unselectFirstTime();
+        runCal();
+    }
+    
+    //Run the SDT calculator with the active buyer type
+    var runCal = function() {
+        stampCalc(checkBuyerType());
+    };
+    
+    var setupEventListeners = function() {
+        //Obtain DOM strings for use in controller
+        var DOM = UICtrl.getDOMstrings();
+    
+        //Calculate on btn click
+        document.getElementById(DOM.calBtn).addEventListener('click', runCal);
+        
+        //First Time Buyer Button Clicked
+        document.getElementById(DOM.firstTimeBtn).addEventListener('click', firstTime);
+        
+        //Second Property Button Clicked
+        document.getElementById(DOM.secondPropBtn).addEventListener('click', secProp);
+        
+        //Calculate on return key
+        document.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13 || event.which === 13) {
+                runCal();
+            }
+        });
+    };    
+    
+    return {
+        init:function() {
+            console.log('Application has started.');
+            setupEventListeners();
+        }
+    };    
 
-function firstTime() {
-    //First time buyer is clicked. If ticking, run FTB calc and untick second property box. If unticking, run default calc.
-    if (document.getElementById("firstTime").checked == false) {
-        stampCalc(standBuyer);
-    } else {
-        stampCalc(firstBuyer);
-        document.getElementById("secondProp").checked = false;
-    }
-}
-function secondProp() {
-    //Second property is clicked. If ticking, run second property calc and untick FTB box. If unticking, run default calc. 
-    if (document.getElementById("secondProp").checked == false) {
-        stampCalc(standBuyer);
-    } else {
-        stampCalc(secBuyer);
-        document.getElementById("firstTime").checked = false;
-    }
-}
+})(dataController, UIController);   
+
+controller.init();
