@@ -9,6 +9,8 @@ As I started to learn JavaScript in October 2018, I challenged myself to re-code
 ## Screenshot
 ![alt text](https://raw.githubusercontent.com/davidwillprice/stamp-duty-calculator/master/Stamp%20Duty%20Calculator%20Screenshot_14%2010%202018.png)
 
+## Architecture
+![alt text](https://raw.githubusercontent.com/davidwillprice/stamp-duty-calculator/master/Stamp%20Duty%20Calculator_Coding%20Architecture_17%2011%202018.png)
 
 ## How it works
 Stamp Duty Tax is a progressive tax paid when purchasing a freehold, leasehold or shared ownership residential property in England, Northern Ireland and Wales. The rates were overhauled first in 2014 – moving from a “slab” to a “tiered” system. So instead of one rate being applied to the entire purchase value, a number of rates were applied at successive thresholds.
