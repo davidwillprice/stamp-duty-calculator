@@ -1,7 +1,7 @@
 //Data controller module
-var dataController = (function() {
+let dataController = (function() {
     
-    var data = {
+    let data = {
         totalTax: 0
     };
                   
@@ -17,8 +17,8 @@ var dataController = (function() {
         },
         
         calTaxSum : function (houseCost, i) {
-            var loBand = dataController.taxBand[i];
-            var upBand = dataController.taxBand[i+1];
+            let loBand = dataController.taxBand[i];
+            let upBand = dataController.taxBand[i+1];
             if ((houseCost - loBand) <= 0) {
                 return 0;
             } else if ((houseCost - loBand) > 0 && (houseCost - loBand) < (upBand - loBand)) {
@@ -47,10 +47,10 @@ var dataController = (function() {
 })();
 
 //UI controller module
-var UIController = (function() {
+let UIController = (function() {
     
     //DOMStrings to streamline UI   
-    var DOMstrings = {
+    let DOMstrings = {
         cost: 'costofhouse',
         calBtn: 'calcstampduty',
         firstTimeBtn: 'firstTime',
@@ -140,10 +140,10 @@ var UIController = (function() {
 })();
 
 //Global controller module
-var controller = (function(dataCtrl, UICtrl) {
+let controller = (function(dataCtrl, UICtrl) {
     
-    var stampCalc = function(buyerType) {
-        var houseCost;
+    let stampCalc = function(buyerType) {
+        let houseCost;
         
         // Wipe any previous calculations
         dataCtrl.wipe();
@@ -157,13 +157,13 @@ var controller = (function(dataCtrl, UICtrl) {
             UICtrl.showTable();
             
             //4. Loop through tax bands
-            for (var i = 0; i < buyerType.length; i++) {
+            for (let i = 0; i < buyerType.length; i++) {
                 
                 //5. Display percentages
                 UICtrl.displayPercentages(buyerType[i], i);
                 
                 //6. Calculate Taxable Sum
-                var taxableSum = dataCtrl.calTaxSum(houseCost, i);
+                let taxableSum = dataCtrl.calTaxSum(houseCost, i);
                 
                 if (taxableSum === 0) {
                     
@@ -178,7 +178,7 @@ var controller = (function(dataCtrl, UICtrl) {
                     UICtrl.displayTaxableSum(taxableSum, i);
                     
                     //8.Calculate Tax
-                    var tax = dataCtrl.calTax(taxableSum, buyerType[i]);
+                    let tax = dataCtrl.calTax(taxableSum, buyerType[i]);
                     
                     //9.Store Tax in data
                     dataCtrl.storeTax(tax);
@@ -189,15 +189,15 @@ var controller = (function(dataCtrl, UICtrl) {
             }
             
             //Total Tax
-            var totalTax = updateTotalTax();
+            let totalTax = updateTotalTax();
             
             updateEffectiveRate(totalTax, houseCost);
         }    
     };
     
-    var updateTotalTax = function() {
+    let updateTotalTax = function() {
         //11. Get total Tax 
-        var totalTax = dataCtrl.getTotalTax();
+        let totalTax = dataCtrl.getTotalTax();
             
         //12. Display Total Tax
         UICtrl.displayTotalTax(totalTax);
@@ -205,16 +205,16 @@ var controller = (function(dataCtrl, UICtrl) {
         return totalTax;
     }
     
-    var updateEffectiveRate = function(totalTax, houseCost) {
+    let updateEffectiveRate = function(totalTax, houseCost) {
         //12. Calcualate Effective Rate
-        var effRate = dataCtrl.calEffRate(totalTax, houseCost);
+        let effRate = dataCtrl.calEffRate(totalTax, houseCost);
             
         //13. Display Effective Rate
         UICtrl.displayEffRate(effRate); 
     }
     
-    var checkBuyerType = function() {
-        var buyerType = UICtrl.getBuyerType();
+    let checkBuyerType = function() {
+        let buyerType = UICtrl.getBuyerType();
         if (buyerType == 'firstBuyer') {
             return dataCtrl.firstBuyer;
         } else if (buyerType == 'secBuyer') {
@@ -224,26 +224,26 @@ var controller = (function(dataCtrl, UICtrl) {
         }
     }
 
-   var firstTime = function() {
-       var buyerType = UICtrl.getBuyerType();
+   let firstTime = function() {
+       let buyerType = UICtrl.getBuyerType();
        UICtrl.unselectSecProp();
        runCal();
     }
    
-    var secProp = function() {
-        var buyerType = UICtrl.getBuyerType();
+    let secProp = function() {
+        let buyerType = UICtrl.getBuyerType();
         UICtrl.unselectFirstTime();
         runCal();
     }
     
     //Run the SDT calculator with the active buyer type
-    var runCal = function() {
+    let runCal = function() {
         stampCalc(checkBuyerType());
     };
     
-    var setupEventListeners = function() {
+    let setupEventListeners = function() {
         //Obtain DOM strings for use in controller
-        var DOM = UICtrl.getDOMstrings();
+        let DOM = UICtrl.getDOMstrings();
     
         //Calculate on btn click
         document.getElementById(DOM.calBtn).addEventListener('click', runCal);
