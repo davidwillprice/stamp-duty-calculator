@@ -35,7 +35,7 @@ Pound sterling values are processed through a function called 'formatMoney', add
 
 Functions 'firstTime' and 'secondProp' make sure that only one of 'Are you a first time buyer?' or 'Is this a second property?' is active at any one time, as you can't be a first time buyer and buying a second property. However, I used HTML inputs rather than a radio as it's important the user is able to have neither of these options selected.
 
-## To do list
+## Possible future figures
 1) Add shared ownership as third buyer option;
 2) Add additional JavaScript comments, better explaining the code;
 3) Tidy JavaScript file;
